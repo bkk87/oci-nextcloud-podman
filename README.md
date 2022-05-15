@@ -6,6 +6,8 @@ Oracle Cloud (OCI) is offering a generous "Always-free tier" including several C
 - Terraform templates for the OCI infrastructure is provided. For the deployments on the instance, instructions are provided as well.
 - Object Storage bucket included which can be integrated with Nextcloud's external storage plugin. We get 20GB for free.
 - Bastion host setup included to access the VM over ssh in a private subnet.
+- WAF included in front of the load balancer to protect the web application
+- TLS encryption using the acme.sh certbot and a hook script to update a new cert at the load balancer (TLS offloading)
 
 ## OCI deployment with Terraform
 
