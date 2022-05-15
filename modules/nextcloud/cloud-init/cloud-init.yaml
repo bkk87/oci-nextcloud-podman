@@ -1,0 +1,42 @@
+#cloud-config
+timezone: Europe/Berlin
+
+package_update: true
+package_upgrade: true
+
+packages:
+  - cockpit-podman
+  - cockpit-storaged
+  - cockpit-pcp
+  - cockpit-packagekit
+  - cockpit-session-recording
+  - podman
+  - dnf-automatic
+  - firewalld
+  - socat 
+  - oraclelinux-developer-release-el8 
+  - python36-oci-cli 
+
+write_files:
+  - content: |
+      */30 07-23 * * * opc podman exec --user www-data nextcloud-app php occ preview:pre-generate
+      */5 07-23 * * * opc podman exec --user www-data nextcloud-app php -f /var/www/html/cron.php
+      0 2 1 * * opc podman exec --user www-data nextcloud-app php occ files:scan --all
+      0 2 3 * * opc podman exec --user www-data nextcloud-app php occ duplicates:find-all
+      0 10 * * * opc podman exec --user www-data nextcloud-app php occ db:add-missing-columns --no-interaction
+      0 9 * * * opc podman exec --user www-data nextcloud-app php occ db:add-missing-primary-keys --no-interaction
+      0 8 * * * opc podman exec --user www-data nextcloud-app php occ db:add-missing-indices
+      0 * * * * opc podman exec --user www-data nextcloud-app php occ app:update --all --no-interaction
+      0 6 * * * root reboot
+    path: /etc/crontab
+    append: true 
+
+runcmd:
+ - systemctl enable --now dnf-automatic.timer
+ - systemctl enable --now cockpit.socket
+ - firewall-offline-cmd --add-port=8080/tcp
+ - firewall-offline-cmd --add-port=80/tcp
+ - /usr/libexec/oci-growfs -y
+ - reboot
+
+
