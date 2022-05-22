@@ -104,6 +104,25 @@ podman exec --user www-data nextcloud-app php occ config:system:set preview_max_
 podman exec --user www-data nextcloud-app php occ config:system:set jpeg_quality --value 60
 podman exec --user www-data nextcloud-app php occ config:app:set preview jpeg_quality --value="60"
 
+# in case you want to generate previews of non-default file types, eg movie or heic files, this snippet needs to run regularly
+# currently, ffmpeg, ghostscript and imagemagick are not part of the official docker image
+podman exec nextcloud-app apt-get update
+podman exec nextcloud-app apt-get install ffmpeg imagemagick ghostscript --yes
+
+podman exec --user www-data nextcloud-app php occ config:system:set enable_previews --value=true
+
+podman exec --user www-data nextcloud-app php occ config:system:set enabledPreviewProviders 0 --value="OC\\Preview\\TXT"
+podman exec --user www-data nextcloud-app php occ config:system:set enabledPreviewProviders 1 --value="OC\\Preview\\MarkDown"
+podman exec --user www-data nextcloud-app php occ config:system:set enabledPreviewProviders 2 --value="OC\\Preview\\PDF"
+podman exec --user www-data nextcloud-app php occ config:system:set enabledPreviewProviders 3 --value="OC\\Preview\\Image"
+podman exec --user www-data nextcloud-app php occ config:system:set enabledPreviewProviders 4 --value="OC\\Preview\\Movie"
+podman exec --user www-data nextcloud-app php occ config:system:set enabledPreviewProviders 5 --value="OC\\Preview\\GIF"
+podman exec --user www-data nextcloud-app php occ config:system:set enabledPreviewProviders 6 --value="OC\\Preview\\HEIC"
+podman exec --user www-data nextcloud-app php occ config:system:set enabledPreviewProviders 7 --value="OC\\Preview\\BMP"
+
+podman exec --user www-data nextcloud-app php occ preview:generate-all -vvv
+
+
 sudo loginctl enable-linger opc
 mkdir -p ~/.config/systemd/user
 cd ~/.config/systemd/user
