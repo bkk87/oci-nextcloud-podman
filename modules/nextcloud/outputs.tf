@@ -15,13 +15,13 @@ output "user_secret_key" {
 }
 
 output "bastion_session_id" {
-  value =  oci_bastion_session.session.id
+  value = oci_bastion_session.session.id
 }
 
 output "instance_private_ip" {
-  value =  oci_core_instance.nextcloud_instance.private_ip
+  value = oci_core_instance.nextcloud_instance.private_ip
 }
 
 output "bucket_hostname" {
-  value =  "${data.oci_objectstorage_namespace.this.namespace}.compat.objectstorage.${var.region}.oraclecloud.com"
+  value = "${data.oci_objectstorage_namespace.this.namespace}.compat.objectstorage.${var.region}.oraclecloud.com"
 }

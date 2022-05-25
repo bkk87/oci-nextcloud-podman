@@ -38,10 +38,10 @@ resource "oci_load_balancer_listener" "tcp_80_ingress" {
 }
 
 resource "oci_load_balancer_backend" "tcp_80_backend" {
-    backendset_name = oci_load_balancer_backend_set.tcp_80_ingress.name
-    ip_address = oci_core_instance.nextcloud_instance.private_ip
-    load_balancer_id = oci_load_balancer.public_ingress.id
-    port = 80
+  backendset_name  = oci_load_balancer_backend_set.tcp_80_ingress.name
+  ip_address       = oci_core_instance.nextcloud_instance.private_ip
+  load_balancer_id = oci_load_balancer.public_ingress.id
+  port             = 80
 }
 
 resource "oci_load_balancer_backend_set" "http_8080_ingress" {
@@ -49,16 +49,18 @@ resource "oci_load_balancer_backend_set" "http_8080_ingress" {
   name             = "http_8080_ingress"
   policy           = "ROUND_ROBIN"
   health_checker {
-    protocol          = "TCP"
+    protocol          = "HTTP"
     port              = 8080
     retries           = 3
     interval_ms       = 60000
     timeout_in_millis = 15000
+    return_code       = 400
+    url_path          = "/"
   }
 }
 
 data "oci_load_balancer_certificates" "certs" {
-    load_balancer_id = oci_load_balancer.public_ingress.id
+  load_balancer_id = oci_load_balancer.public_ingress.id
 }
 resource "oci_load_balancer_listener" "https_443_ingress" {
   default_backend_set_name = oci_load_balancer_backend_set.http_8080_ingress.name
@@ -66,10 +68,10 @@ resource "oci_load_balancer_listener" "https_443_ingress" {
   name                     = "https_443"
   port                     = 443
   protocol                 = "HTTP"
-  rule_set_names = [oci_load_balancer_rule_set.rule_set.name]
+  rule_set_names           = [oci_load_balancer_rule_set.rule_set.name]
   ssl_configuration {
-    cipher_suite_name = "oci-modern-ssl-cipher-suite-v1"
-    certificate_name = data.oci_load_balancer_certificates.certs.certificates[length(data.oci_load_balancer_certificates.certs.certificates)-1]["certificate_name"]
+    cipher_suite_name       = "oci-modern-ssl-cipher-suite-v1"
+    certificate_name        = data.oci_load_balancer_certificates.certs.certificates[length(data.oci_load_balancer_certificates.certs.certificates) - 1]["certificate_name"]
     verify_peer_certificate = false
   }
 
@@ -79,10 +81,10 @@ resource "oci_load_balancer_listener" "https_443_ingress" {
 }
 
 resource "oci_load_balancer_backend" "http_8080_backend" {
-    backendset_name = oci_load_balancer_backend_set.http_8080_ingress.name
-    ip_address = oci_core_instance.nextcloud_instance.private_ip
-    load_balancer_id = oci_load_balancer.public_ingress.id
-    port = 8080
+  backendset_name  = oci_load_balancer_backend_set.http_8080_ingress.name
+  ip_address       = oci_core_instance.nextcloud_instance.private_ip
+  load_balancer_id = oci_load_balancer.public_ingress.id
+  port             = 8080
 }
 
 resource "oci_load_balancer_rule_set" "rule_set" {
@@ -92,7 +94,7 @@ resource "oci_load_balancer_rule_set" "rule_set" {
       protocol = "https"
       host     = "{host}"
       path     = "/remote.php/dav"
-            query = "?{query}"
+      query    = "?{query}"
     }
     conditions {
       attribute_name  = "PATH"
@@ -107,7 +109,7 @@ resource "oci_load_balancer_rule_set" "rule_set" {
       protocol = "https"
       host     = "{host}"
       path     = "/remote.php/dav"
-            query = "?{query}"
+      query    = "?{query}"
     }
     conditions {
       attribute_name  = "PATH"
@@ -122,7 +124,7 @@ resource "oci_load_balancer_rule_set" "rule_set" {
       protocol = "https"
       host     = "{host}"
       path     = "/index.php/.well-known/webfinger"
-            query = "?{query}"
+      query    = "?{query}"
     }
     conditions {
       attribute_name  = "PATH"
@@ -137,7 +139,7 @@ resource "oci_load_balancer_rule_set" "rule_set" {
       protocol = "https"
       host     = "{host}"
       path     = "/index.php/.well-known/nodeinfo"
-      query = "?{query}"
+      query    = "?{query}"
     }
     conditions {
       attribute_name  = "PATH"
@@ -149,8 +151,8 @@ resource "oci_load_balancer_rule_set" "rule_set" {
   items {
     action = "ADD_HTTP_RESPONSE_HEADER"
     header = "Strict-Transport-Security"
-    value = "max-age=15552000; includeSubDomains; preload"
+    value  = "max-age=15552000; includeSubDomains; preload"
   }
   load_balancer_id = oci_load_balancer.public_ingress.id
-  name = replace(oci_load_balancer.public_ingress.display_name,"-","_")
+  name             = replace(oci_load_balancer.public_ingress.display_name, "-", "_")
 }

@@ -15,15 +15,15 @@ resource "oci_core_volume_backup_policy" "weekly" {
 
 
 resource "oci_core_volume_group" "weekly" {
-    availability_domain = data.oci_identity_availability_domain.ad_domain.name
-    compartment_id = var.compartment_id
-    source_details {
-        type = "volumeIds"
-        volume_ids = [oci_core_instance.nextcloud_instance.boot_volume_id]
-    }
+  availability_domain = data.oci_identity_availability_domain.ad_domain.name
+  compartment_id      = var.compartment_id
+  source_details {
+    type       = "volumeIds"
+    volume_ids = [oci_core_instance.nextcloud_instance.boot_volume_id]
+  }
 
-    backup_policy_id = oci_core_volume_backup_policy.weekly.id
+  backup_policy_id = oci_core_volume_backup_policy.weekly.id
 
-    display_name = "weekly-backups"
+  display_name = "weekly-backups"
 }
 

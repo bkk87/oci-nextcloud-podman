@@ -7,5 +7,5 @@ variable "region" {
 }
 
 variable "ssh_public_key" {
-  type    = string
+  type = string
 }

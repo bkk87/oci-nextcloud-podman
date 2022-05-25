@@ -51,7 +51,7 @@ resource "oci_core_network_security_group_security_rule" "public_egress_tcp_udp"
   network_security_group_id = oci_core_network_security_group.public.id
   protocol                  = "all"
 
-  description = "allow tcp/udp egress"
+  description      = "allow tcp/udp egress"
   destination_type = "CIDR_BLOCK"
   destination      = "0.0.0.0/0"
 }
@@ -95,7 +95,7 @@ resource "oci_core_network_security_group_security_rule" "private_egress_tcp_udp
   network_security_group_id = oci_core_network_security_group.private.id
   protocol                  = "all"
 
-  description = "allow tcp egress"
+  description      = "allow tcp egress"
   destination_type = "CIDR_BLOCK"
   destination      = "0.0.0.0/0"
 }

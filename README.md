@@ -120,6 +120,7 @@ podman exec --user www-data nextcloud-app php occ config:system:set enabledPrevi
 podman exec --user www-data nextcloud-app php occ config:system:set enabledPreviewProviders 6 --value="OC\\Preview\\HEIC"
 podman exec --user www-data nextcloud-app php occ config:system:set enabledPreviewProviders 7 --value="OC\\Preview\\BMP"
 podman exec --user www-data nextcloud-app php occ config:system:set enabledPreviewProviders 8 --value="OC\\Preview\\JPEG"
+podman exec --user www-data nextcloud-app php occ config:system:set enabledPreviewProviders 9 --value="OC\\Preview\\MP4"
 
 podman exec --user www-data nextcloud-app php occ preview:generate-all -vvv
 
