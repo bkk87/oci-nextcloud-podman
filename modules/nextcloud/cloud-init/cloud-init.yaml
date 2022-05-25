@@ -28,6 +28,8 @@ write_files:
       0 8 * * * opc podman exec --user www-data nextcloud-app php occ db:add-missing-indices
       0 * * * * opc podman exec --user www-data nextcloud-app php occ app:update --all --no-interaction
       0 6 * * * root reboot
+      15 6 * * * opc podman exec nextcloud-app apt-get update
+      20 6 * * * opc podman exec nextcloud-app apt-get install ffmpeg imagemagick ghostscript --yes
     path: /etc/crontab
     append: true 
 
