@@ -87,6 +87,84 @@ resource "oci_waf_web_app_firewall_policy" "nextcloud" {
         key     = 920300
         version = 1
       }
+
+      protection_capabilities {
+        key                            = 933210
+        version                        = 1
+        collaborative_action_threshold = 1
+      }
+      protection_capabilities {
+        key     = 933200
+        version = 1
+
+      }
+      protection_capabilities {
+        key     = 933190
+        version = 1
+
+      }
+      protection_capabilities {
+        key     = 933180
+        version = 2
+
+      }
+      protection_capabilities {
+        key     = 933170
+        version = 2
+
+      }
+      protection_capabilities {
+        key     = 933161
+        version = 2
+
+      }
+      protection_capabilities {
+        key     = 933151
+        version = 2
+
+      }
+      protection_capabilities {
+        key     = 933140
+        version = 2
+
+      }
+      protection_capabilities {
+        key     = 933131
+        version = 2
+
+      }
+      protection_capabilities {
+        key     = 933130
+        version = 2
+
+      }
+      protection_capabilities {
+        key     = 933120
+        version = 2
+
+      }
+      protection_capabilities {
+        key     = 933111
+        version = 2
+
+      }
+      protection_capabilities {
+        key     = 933110
+        version = 2
+
+      }
+      protection_capabilities {
+        key     = 933100
+        version = 2
+      }
+      protection_capabilities {
+        key     = 933150
+        version = 2
+      }
+      protection_capabilities {
+        key     = 933160
+        version = 2
+      }
       type = "PROTECTION"
 
       condition_language         = "JMESPATH"
