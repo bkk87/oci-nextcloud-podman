@@ -6,7 +6,7 @@ resource "oci_identity_dynamic_group" "manage_lb" {
   name           = "allow_lb_access"
 }
 
-resource "oci_identity_policy" "test_policy" {
+resource "oci_identity_policy" "cert_renewal_policy" {
   compartment_id = var.tenancy_ocid
   description    = "instances manage the load balancers for cert renewal"
   name           = "instances_access_lb"
