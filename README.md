@@ -113,14 +113,14 @@ podman exec --user www-data nextcloud-app php occ config:system:set enable_previ
 
 podman exec --user www-data nextcloud-app php occ config:system:set enabledPreviewProviders 0 --value="OC\\Preview\\TXT"
 podman exec --user www-data nextcloud-app php occ config:system:set enabledPreviewProviders 1 --value="OC\\Preview\\MarkDown"
-podman exec --user www-data nextcloud-app php occ config:system:set enabledPreviewProviders 2 --value="OC\\Preview\\PDF"
+podman exec --user www-data nextcloud-app php occ config:system:set enabledPreviewProviders 2 --value="OC\\Preview\\MP4"
 podman exec --user www-data nextcloud-app php occ config:system:set enabledPreviewProviders 3 --value="OC\\Preview\\Image"
 podman exec --user www-data nextcloud-app php occ config:system:set enabledPreviewProviders 4 --value="OC\\Preview\\Movie"
 podman exec --user www-data nextcloud-app php occ config:system:set enabledPreviewProviders 5 --value="OC\\Preview\\GIF"
 podman exec --user www-data nextcloud-app php occ config:system:set enabledPreviewProviders 6 --value="OC\\Preview\\HEIC"
 podman exec --user www-data nextcloud-app php occ config:system:set enabledPreviewProviders 7 --value="OC\\Preview\\BMP"
 podman exec --user www-data nextcloud-app php occ config:system:set enabledPreviewProviders 8 --value="OC\\Preview\\JPEG"
-podman exec --user www-data nextcloud-app php occ config:system:set enabledPreviewProviders 9 --value="OC\\Preview\\MP4"
+
 
 podman exec --user www-data nextcloud-app php occ preview:generate-all -vvv
 
