@@ -1,6 +1,6 @@
 # Object storage
 
-resource "oci_objectstorage_bucket" "test_bucket" {
+resource "oci_objectstorage_bucket" "nextcloud" {
   compartment_id = var.compartment_id
   name           = var.bucket_name
   namespace      = data.oci_objectstorage_namespace.this.namespace
