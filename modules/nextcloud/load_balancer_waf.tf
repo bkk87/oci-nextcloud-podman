@@ -80,10 +80,6 @@ resource "oci_waf_web_app_firewall_policy" "nextcloud" {
         version = 1
       }
       protection_capabilities {
-        key     = 920320
-        version = 1
-      }
-      protection_capabilities {
         key     = 920300
         version = 1
       }
