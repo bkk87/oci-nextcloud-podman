@@ -29,7 +29,7 @@ write_files:
       0 * * * * opc podman exec --user www-data nextcloud-app php occ app:update --all --no-interaction
       0 6 * * * root reboot
       15 6 * * * opc podman exec nextcloud-app apt-get update
-      20 6 * * * opc podman exec nextcloud-app apt-get install ffmpeg imagemagick ghostscript --yes
+      20 6 * * * opc podman exec nextcloud-app apt-get install ffmpeg imagemagick ghostscript python3 python3-numpy python3-pillow python3-scipy python3-cryptography python3-pywt --yes
     path: /etc/crontab
     append: true 
 
