@@ -147,7 +147,7 @@ vi update_lb.sh
 now=$(date "+%Y%m%d_%H%M")
 CertificateName=Certificate-$now
 ocicli=/usr/bin/oci
-ListenerName=https_8080
+ListenerName=https_443
 BackendName=http_8080_ingress
 LB_OCID=<your LB ocid>
 certificate_path=/home/opc/.acme.sh/<your domain>
