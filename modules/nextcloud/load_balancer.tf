@@ -49,13 +49,11 @@ resource "oci_load_balancer_backend_set" "http_8080_ingress" {
   name             = "http_8080_ingress"
   policy           = "ROUND_ROBIN"
   health_checker {
-    protocol          = "HTTP"
+    protocol          = "TCP"
     port              = 8080
     retries           = 3
     interval_ms       = 60000
     timeout_in_millis = 15000
-    return_code       = 400
-    url_path          = "/"
   }
 }
 

@@ -89,7 +89,7 @@ podman exec --user www-data nextcloud-app php occ maintenance:install \
   --database-pass "<your password>" \
   --admin-user "<your admin username>" \
   --admin-pass "<your password>" 
-podman exec --user www-data nextcloud-app php occ config:system:set trusted_domains 1 --value="<your instance private ip>:8080"
+
 podman exec --user www-data nextcloud-app php occ config:system:set trusted_domains 2 --value=<your domain static ip>
 podman exec --user www-data nextcloud-app php occ config:system:set trusted_domains 3 --value=<your domain>
 podman exec --user www-data nextcloud-app php occ config:system:set trusted_proxies 0 --value=<your domain static ip>
