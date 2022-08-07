@@ -60,6 +60,7 @@ resource "oci_load_balancer_backend_set" "http_8080_ingress" {
 data "oci_load_balancer_certificates" "certs" {
   load_balancer_id = oci_load_balancer.public_ingress.id
 }
+
 resource "oci_load_balancer_listener" "https_443_ingress" {
   default_backend_set_name = oci_load_balancer_backend_set.http_8080_ingress.name
   load_balancer_id         = oci_load_balancer.public_ingress.id
@@ -67,10 +68,13 @@ resource "oci_load_balancer_listener" "https_443_ingress" {
   port                     = 443
   protocol                 = "HTTP"
   rule_set_names           = [oci_load_balancer_rule_set.rule_set.name]
-  ssl_configuration {
-    cipher_suite_name       = "oci-modern-ssl-cipher-suite-v1"
-    certificate_name        = data.oci_load_balancer_certificates.certs.certificates[length(data.oci_load_balancer_certificates.certs.certificates) - 1]["certificate_name"]
-    verify_peer_certificate = false
+  dynamic "ssl_configuration" {
+    for_each = data.oci_load_balancer_certificates.certs.certificates
+    content {
+      cipher_suite_name       = "oci-modern-ssl-cipher-suite-v1"
+      certificate_name        = data.oci_load_balancer_certificates.certs.certificates[length(data.oci_load_balancer_certificates.certs.certificates) - 1]["certificate_name"]
+      verify_peer_certificate = false
+    }
   }
 
   connection_configuration {

@@ -11,19 +11,14 @@ data "oci_identity_compartment" "default" {
   id = var.compartment_id
 }
 
-data "template_file" "instance_cloud_init_file" {
-  template = file("${path.module}/cloud-init/cloud-init.yaml")
-}
-
-
-data "template_cloudinit_config" "instance" {
+data "cloudinit_config" "instance" {
   gzip          = true
   base64_encode = true
 
   part {
     filename     = "server.yaml"
     content_type = "text/cloud-config"
-    content      = data.template_file.instance_cloud_init_file.rendered
+    content      = file("${path.module}/cloud-init/cloud-init.yaml")
   }
 }
 

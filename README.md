@@ -82,7 +82,7 @@ podman run \
   --name=${PODNAME}-app docker.io/library/nextcloud:stable
 
 podman exec --user www-data nextcloud-app php occ maintenance:install \
-  --da/app/Bitwarden/resources/app.asar/index.htmltabase "mysql" \
+  --database "mysql" \
   --database-host "127.0.0.1" \
   --database-name "nextcloud" \
   --database-user "nextcloud" \
@@ -122,7 +122,7 @@ podman exec --user www-data nextcloud-app php occ config:system:set enabledPrevi
 podman exec --user www-data nextcloud-app php occ config:system:set enabledPreviewProviders 7 --value="OC\\Preview\\BMP"
 podman exec --user www-data nextcloud-app php occ config:system:set enabledPreviewProviders 8 --value="OC\\Preview\\JPEG"
 
-
+podman exec --user www-data nextcloud-app php occ app:install preview
 podman exec --user www-data nextcloud-app php occ preview:generate-all -vvv
 
 
@@ -157,7 +157,7 @@ $ocicli lb certificate create \
 --auth instance_principal \
 --certificate-name $CertificateName \
 --load-balancer-id $LB_OCID \
---private-key-file "$certificate_path/<your domain>" \
+--private-key-file "$certificate_path/<your domain>.key" \
 --public-certificate-file "$certificate_path/fullchain.cer"
 
 sleep 20
@@ -179,7 +179,7 @@ chmod +x update_lb.sh
 sudo /home/opc/.acme.sh/acme.sh --home /home/opc/.acme.sh --issue -d <your domain> --standalone --force --renew-hook /home/opc/update_lb.sh --server letsencrypt
 
 # initially deploy the script at the OCI load balancer
-./update_lb.sh
+sudo ./update_lb.sh
 
 # the auto-renewal script will run is placed in crontab of user opc. however, we need to run the script with root priviledged. move the auto-generated line from the user's crontab to /etc/crontab
 crontab -e
