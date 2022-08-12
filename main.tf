@@ -16,4 +16,5 @@ module "nextcloud" {
 
   # object store
   bucket_name = "nextcloud-bucket"
+  user_email = var.user_email
 }
