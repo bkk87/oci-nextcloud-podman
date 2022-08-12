@@ -179,7 +179,7 @@ chmod +x update_lb.sh
 sudo /home/opc/.acme.sh/acme.sh --home /home/opc/.acme.sh --issue -d <your domain> --standalone --force --renew-hook /home/opc/update_lb.sh --server letsencrypt
 
 # initially deploy the script at the OCI load balancer
-sudo ./update_lb.sh
+./update_lb.sh
 
 # the auto-renewal script will run is placed in crontab of user opc. however, we need to run the script with root priviledged. move the auto-generated line from the user's crontab to /etc/crontab
 crontab -e
