@@ -30,7 +30,7 @@ resource "oci_core_instance" "nextcloud_instance" {
 
   metadata = {
     ssh_authorized_keys = var.ssh_public_key
-    user_data           = data.template_cloudinit_config.instance.rendered
+    user_data           = data.cloudinit_config.instance.rendered
   }
 
   shape_config {
@@ -38,14 +38,14 @@ resource "oci_core_instance" "nextcloud_instance" {
     memory_in_gbs = 8
   }
   source_details {
-        source_id                = data.oci_core_images.ol8.images.0.id
-        source_type             = "image"
-        boot_volume_size_in_gbs = 200
+    source_id               = data.oci_core_images.ol8.images.0.id
+    source_type             = "image"
+    boot_volume_size_in_gbs = 200
   }
-    # source_details {
-    #   source_id   = "ocid1.bootvolume.oc1.eu-frankfurt-1.xxxxx"
-    #   source_type = "bootVolume"
-    # }
+  # source_details {
+  #   source_id   = "ocid1.bootvolume.oc1.eu-frankfurt-1.xxxxx"
+  #   source_type = "bootVolume"
+  # }
   preserve_boot_volume = true
 
   lifecycle {

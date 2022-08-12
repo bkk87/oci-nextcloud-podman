@@ -17,13 +17,14 @@ resource "oci_objectstorage_bucket" "nextcloud" {
 # Object storage IAM
 
 resource "oci_identity_user" "nextcloud" {
-  compartment_id = var.compartment_id
+  compartment_id = var.tenancy_ocid
   description    = "nextcloud user to access the object storage"
   name           = "nextcloud"
+  email          = var.user_email
 }
 
 resource "oci_identity_group" "nextcloud" {
-  compartment_id = var.compartment_id
+  compartment_id = var.tenancy_ocid
   description    = "nextcloud user group to access the object storage"
   name           = "nextcloud"
 }
@@ -39,7 +40,7 @@ resource "oci_identity_customer_secret_key" "this" {
 }
 
 resource "oci_identity_policy" "access_object_store_policy" {
-  compartment_id = var.compartment_id
+  compartment_id = var.tenancy_ocid
   description    = "allow nextcloud group to access the bucket"
   name           = "access_object_storage"
   statements = [

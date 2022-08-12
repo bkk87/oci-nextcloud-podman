@@ -9,3 +9,4 @@ variable "private_subnet" {}
 variable "public_subnet" {}
 variable "ad_number" {}
 variable "bucket_name" {}
+variable "user_email" {}

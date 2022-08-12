@@ -1,6 +1,6 @@
 
 resource "oci_identity_dynamic_group" "manage_lb" {
-  compartment_id = var.compartment_id
+  compartment_id = var.tenancy_ocid
   description    = "allow instance to manage the lb"
   matching_rule  = "any {instance.id = '${oci_core_instance.nextcloud_instance.id}'}"
   name           = "allow_lb_access"
