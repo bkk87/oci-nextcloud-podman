@@ -3,7 +3,7 @@ output "ad" {
 }
 
 output "loadbalacer_ip" {
-  value = oci_load_balancer.public_ingress.ip_addresses.0
+  value = oci_load_balancer.public_ingress.ip_address_details[0].ip_address
 }
 
 output "user_secret_id" {
