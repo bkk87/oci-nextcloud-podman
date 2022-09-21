@@ -167,7 +167,7 @@ $ocicli lb listener update \
 --default-backend-set-name $BackendName \
 --listener-name $ListenerName \
 --load-balancer-id $LB_OCID \
---port 8080 \
+--port 443 \
 --protocol HTTP \
 --ssl-certificate-name $CertificateName \
 --force
