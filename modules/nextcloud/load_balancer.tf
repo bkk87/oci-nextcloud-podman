@@ -69,9 +69,9 @@ resource "oci_load_balancer_listener" "https_443_ingress" {
   protocol                 = "HTTP"
   rule_set_names           = [oci_load_balancer_rule_set.rule_set.name]
   ssl_configuration {
-      cipher_suite_name       = "oci-modern-ssl-cipher-suite-v1"
-      certificate_name        = data.oci_load_balancer_certificates.certs.certificates[length(data.oci_load_balancer_certificates.certs.certificates) - 1]["certificate_name"]
-      verify_peer_certificate = false
+    cipher_suite_name       = "oci-modern-ssl-cipher-suite-v1"
+    certificate_name        = data.oci_load_balancer_certificates.certs.certificates[length(data.oci_load_balancer_certificates.certs.certificates) - 1]["certificate_name"]
+    verify_peer_certificate = false
   }
 
   connection_configuration {
