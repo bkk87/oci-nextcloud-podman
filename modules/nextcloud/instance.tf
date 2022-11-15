@@ -38,14 +38,10 @@ resource "oci_core_instance" "nextcloud_instance" {
     memory_in_gbs = 8
   }
   source_details {
-    source_id               = data.oci_core_images.ol8.images.0.id
-    source_type             = "image"
-    boot_volume_size_in_gbs = 200
+    source_id               = var.ocid_backup_bootvolume != null ? var.ocid_backup_bootvolume : data.oci_core_images.ol8.images.0.id
+    source_type             = var.ocid_backup_bootvolume != null ? "bootVolume" : "image"
+    boot_volume_size_in_gbs = var.ocid_backup_bootvolume != null ? null : 200
   }
-  # source_details {
-  #   source_id   = "ocid1.bootvolume.oc1.eu-frankfurt-1.xxxxx"
-  #   source_type = "bootVolume"
-  # }
   preserve_boot_volume = true
 
   lifecycle {

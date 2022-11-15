@@ -25,3 +25,9 @@ variable "path_sshd_config_file" {
   default     = null
   description = "full path to a sshd config file which will be created, e.g. /home/user/.ssh/config.d/oci"
 }
+
+variable "ocid_backup_bootvolume" {
+  type        = string
+  default     = null
+  description = "ocid of a backup boot volume to restore from"
+}

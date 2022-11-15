@@ -11,4 +11,5 @@ variable "public_subnet" {}
 variable "ad_number" {}
 variable "bucket_name" {}
 variable "user_email" { nullable = true }
-variable "path_sshd_config_file" {}
+variable "path_sshd_config_file" { nullable = true }
+variable "ocid_backup_bootvolume" { nullable = true }
