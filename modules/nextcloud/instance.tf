@@ -29,7 +29,7 @@ resource "oci_core_instance" "nextcloud_instance" {
   is_pv_encryption_in_transit_enabled = true
 
   metadata = {
-    ssh_authorized_keys = var.ssh_public_key
+    ssh_authorized_keys = file(var.path_ssh_public_key)
     user_data           = data.cloudinit_config.instance.rendered
   }
 

@@ -10,7 +10,7 @@ resource "oci_bastion_bastion" "main" {
 resource "oci_bastion_session" "session" {
   bastion_id = oci_bastion_bastion.main.id
   key_details {
-    public_key_content = var.ssh_public_key
+    public_key_content = file(var.path_ssh_public_key)
   }
   target_resource_details {
     session_type       = "MANAGED_SSH"
@@ -23,6 +23,19 @@ resource "oci_bastion_session" "session" {
   }
   session_ttl_in_seconds = 10800
   depends_on             = [time_sleep.wait_seconds]
+}
+
+resource "local_file" "oci_sshd_config" {
+  count    = var.path_sshd_config_file != null ? 1 : 0
+  content  = <<EOT
+Host oci
+ HostName ${oci_core_instance.nextcloud_instance.private_ip}
+ User opc
+ Port 22
+ IdentityFile ${var.path_ssh_private_key}
+ ProxyCommand ssh -i ${var.path_ssh_private_key} -oHostKeyAlgorithms=+ssh-rsa -oPubkeyAcceptedAlgorithms=+ssh-rsa -W %h:%p -p 22 ${oci_bastion_session.session.id}@host.bastion.${var.region}.oci.oraclecloud.com
+EOT
+  filename = var.path_sshd_config_file
 }
 
 resource "time_sleep" "wait_seconds" {
