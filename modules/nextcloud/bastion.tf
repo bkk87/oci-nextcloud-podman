@@ -26,7 +26,7 @@ resource "oci_bastion_session" "session" {
 }
 
 resource "local_file" "oci_sshd_config" {
-  count    = var.path_sshd_config_file != null ? 1 : 0
+  count    = var.path_sshd_config_file != null && var.path_ssh_private_key != null ? 1 : 0
   content  = <<EOT
 Host oci
  HostName ${oci_core_instance.nextcloud_instance.private_ip}
