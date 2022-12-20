@@ -50,3 +50,7 @@ data "oci_core_images" "ol8" {
 data "oci_objectstorage_namespace" "this" {
   compartment_id = var.compartment_id
 }
+
+data "oci_load_balancer_certificates" "certs" {
+  load_balancer_id = oci_load_balancer.public_ingress.id
+}
