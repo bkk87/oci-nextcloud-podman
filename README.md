@@ -102,7 +102,7 @@ podman exec --user www-data nextcloud-app php occ config:app:set previewgenerato
 podman exec --user www-data nextcloud-app php occ config:app:set previewgenerator heightSizes --value="256"
 podman exec --user www-data nextcloud-app php occ config:system:set preview_max_x --value 2048
 podman exec --user www-data nextcloud-app php occ config:system:set preview_max_y --value 2048
-podman exec --user www-data nextcloud-app php occ config:system:set preview_max_filesize_image --value 10
+podman exec --user www-data nextcloud-app php occ config:system:set preview_max_filesize_image --value 256
 podman exec --user www-data nextcloud-app php occ config:system:set jpeg_quality --value 60
 podman exec --user www-data nextcloud-app php occ config:app:set preview jpeg_quality --value="60"
 
@@ -112,6 +112,7 @@ podman exec nextcloud-app apt-get update
 podman exec nextcloud-app apt-get install ffmpeg imagemagick ghostscript --yes
 
 podman exec --user www-data nextcloud-app php occ config:system:set enable_previews --value=true
+podman exec --user www-data nextcloud-app php occ config:system:set preview_max_memory --value=4096
 
 podman exec --user www-data nextcloud-app php occ config:system:set enabledPreviewProviders 0 --value="OC\\Preview\\TXT"
 podman exec --user www-data nextcloud-app php occ config:system:set enabledPreviewProviders 1 --value="OC\\Preview\\MarkDown"
@@ -122,6 +123,9 @@ podman exec --user www-data nextcloud-app php occ config:system:set enabledPrevi
 podman exec --user www-data nextcloud-app php occ config:system:set enabledPreviewProviders 6 --value="OC\\Preview\\HEIC"
 podman exec --user www-data nextcloud-app php occ config:system:set enabledPreviewProviders 7 --value="OC\\Preview\\BMP"
 podman exec --user www-data nextcloud-app php occ config:system:set enabledPreviewProviders 8 --value="OC\\Preview\\JPEG"
+podman exec --user www-data nextcloud-app php occ config:system:set enabledPreviewProviders 9 --value="OC\\Preview\\AVI"
+podman exec --user www-data nextcloud-app php occ config:system:set enabledPreviewProviders 10 --value="OC\\Preview\\MKV"
+podman exec --user www-data nextcloud-app php occ config:system:set enabledPreviewProviders 11 --value="OC\\Preview\\TIFF"
 
 podman exec --user www-data nextcloud-app php occ app:install preview
 podman exec --user www-data nextcloud-app php occ preview:generate-all -vvv
